@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreStudentRequest;
+use App\Http\Requests\UpdateStudentRequest;
 use App\Models\Student;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
 class StudentController extends Controller
@@ -30,20 +31,9 @@ class StudentController extends Controller
     /**
      * Store a newly created student.
      */
-    public function store(Request $request): JsonResponse
+    public function store(StoreStudentRequest $request): JsonResponse
     {
-        $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'date_of_birth' => 'required|date|before:today',
-            'gender' => 'required|in:male,female,other',
-            'address' => 'required|string',
-            'phone_number' => 'required|string|max:20',
-            'enrollment_date' => 'required|date',
-        ]);
-
-        $student = Student::create($validated);
+        $student = Student::create($request->validated());
         $student->load('user');
 
         return response()->json([
@@ -67,20 +57,9 @@ class StudentController extends Controller
     /**
      * Update the specified student.
      */
-    public function update(Request $request, Student $student): JsonResponse
+    public function update(UpdateStudentRequest $request, Student $student): JsonResponse
     {
-        $validated = $request->validate([
-            'user_id' => 'sometimes|exists:users,id',
-            'first_name' => 'sometimes|string|max:255',
-            'last_name' => 'sometimes|string|max:255',
-            'date_of_birth' => 'sometimes|date|before:today',
-            'gender' => 'sometimes|in:male,female,other',
-            'address' => 'sometimes|string',
-            'phone_number' => 'sometimes|string|max:20',
-            'enrollment_date' => 'sometimes|date',
-        ]);
-
-        $student->update($validated);
+        $student->update($request->validated());
         $student->load('user');
 
         return response()->json([
