@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Controllers\Controller;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Validation\Rule;
 
 class StudentController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the students.
      */
     public function index(): JsonResponse
     {
@@ -28,15 +28,7 @@ class StudentController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        // Not needed for API
-    }
-
-    /**
-     * Store a newly created resource in storage.
+     * Store a newly created student.
      */
     public function store(Request $request): JsonResponse
     {
@@ -61,7 +53,7 @@ class StudentController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified student.
      */
     public function show(Student $student): JsonResponse
     {
@@ -73,15 +65,7 @@ class StudentController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Student $student)
-    {
-        // Not needed for API
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Update the specified student.
      */
     public function update(Request $request, Student $student): JsonResponse
     {
@@ -106,7 +90,7 @@ class StudentController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified student.
      */
     public function destroy(Student $student): JsonResponse
     {
